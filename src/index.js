@@ -103,6 +103,8 @@ export {
   snapshotContainsUpdate
 } from './internals.js'
 
+import { Doc } from './internals.js'
+
 const glo = /** @type {any} */ (typeof globalThis !== 'undefined'
   ? globalThis
   : typeof window !== 'undefined'
@@ -112,7 +114,7 @@ const glo = /** @type {any} */ (typeof globalThis !== 'undefined'
 
 const importIdentifier = '__ $YJS$ __'
 
-if (glo[importIdentifier] === true) {
+if (glo[importIdentifier] && !Object.is(glo[importIdentifier], Doc)) {
   /**
    * Dear reader of this message. Please take this seriously.
    *
@@ -129,4 +131,5 @@ if (glo[importIdentifier] === true) {
    */
   console.error('Yjs was already imported. This breaks constructor checks and will lead to issues! - https://github.com/yjs/yjs/issues/438')
 }
-glo[importIdentifier] = true
+
+glo[importIdentifier] = Doc
